@@ -16,38 +16,125 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center|top|left"
         android:src="@drawable/donate_logo"
-        android:layout_margin="10dp"/>
+        android:layout_marginLeft="10dp"/>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center|top|left"
-        android:layout_marginTop="170dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="160dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="welcome,"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="5dp"/>
+            android:orientation="vertical"
+            android:layout_gravity="center|top|left">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="SignUp to start your new journey"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="welcome,"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="5dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="SignUp to start your new journey"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginLeft="30dp"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/enterUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:hint="Username"
+                android:textColor="@color/grey"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:id="@+id/enterEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:hint="Email"
+                android:textColor="@color/grey"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:id="@+id/enterPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:hint="Phone"
+                android:textColor="@color/grey"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:id="@+id/enterPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:hint="Password"
+                android:textColor="@color/grey"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textCapSentences"/>
+
+            <Button
+                android:id="@+id/signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="sign up"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

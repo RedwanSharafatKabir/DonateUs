@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.EditText
 import com.donate.us.R
 import com.donate.us.databinding.ActivityLoginBinding
+import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
@@ -38,9 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
             else {
                 binding.loginProgressId.visibility = View.INVISIBLE
-
-                val intent = Intent(this@LoginActivity, OtpActivity::class.java)
-                startActivity(intent)
+                sendOtp()
             }
         })
 
@@ -48,5 +48,18 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         })
+    }
+
+    private fun sendOtp() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phone,
+            60,
+            TimeUnit.SECONDS,
+            this,
+
+        )
+        
+        val intent = Intent(this@LoginActivity, OtpActivity::class.java)
+        startActivity(intent)
     }
 }

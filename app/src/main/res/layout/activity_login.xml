@@ -1,33 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Authentication.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/otp_background">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:lottie_fileName="food_moviendose.json"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        android:paddingRight="120dp"
-        android:paddingLeft="120dp"
-        android:paddingTop="70dp"
-        android:paddingBottom="70dp"/>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center|top"
+        android:src="@drawable/send_otp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="160dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="login with phone number"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Enter phone number and password"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -62,17 +88,53 @@
                         android:textColorHint="@color/grey"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
+                        android:layout_weight="70"
                         android:background="@android:color/transparent"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
                         android:hint="01XXXXXXXXX"
                         android:textSize="18sp"
                         android:inputType="number"
                         android:gravity="center|left"
                         android:maxLength="11"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp" />
+                        android:paddingBottom="10dp"
+                        android:paddingRight="5dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="90">
+
+                    <EditText
+                        android:id="@+id/enterPasswordLogin"
+                        android:fontFamily="sans-serif-light"
+                        android:textColorHint="@color/grey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="70"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_baseline_lock_24"
+                        android:hint=" Password"
+                        android:textSize="18sp"
+                        android:inputType="textPassword"
+                        android:gravity="center|left"
+                        android:maxLength="11"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="50dp"/>
 
                     <ImageView
                         android:id="@+id/button_confirm"
@@ -101,22 +163,18 @@
                 android:text="new here ?"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:layout_marginRight="5dp"
                 android:textSize="18sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/signUpPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="Sign up"
+                android:text="@string/signup"
                 android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:layout_marginRight="5dp"
-                android:textSize="16sp"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
@@ -124,6 +182,4 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</FrameLayout>

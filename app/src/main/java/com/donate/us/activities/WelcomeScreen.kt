@@ -1,16 +1,14 @@
-package com.donate.us.SplashAndHome
+package com.donate.us.activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AlertDialog
-import com.donate.us.Authentication.LoginActivity
+import com.donate.us.authentication.LoginActivity
 import com.donate.us.R
 import com.donate.us.databinding.ActivitySplashScreenBinding
 
-class SplashScreen : AppCompatActivity() {
+class WelcomeScreen: AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashScreenBinding
 
@@ -20,31 +18,29 @@ class SplashScreen : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.getStartedFloatingId.setOnClickListener(View.OnClickListener {
+        binding.getStartedFloatingId.setOnClickListener {
             finish()
-            val intent = Intent(this@SplashScreen, LoginActivity::class.java)
+            val intent = Intent(this@WelcomeScreen, LoginActivity::class.java)
             startActivity(intent)
-        })
+        }
     }
 
     override fun onBackPressed() {
-        val alertDialogBuilder: AlertDialog.Builder
-        alertDialogBuilder = AlertDialog.Builder(this@SplashScreen)
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@WelcomeScreen)
         alertDialogBuilder.setTitle("EXIT !")
         alertDialogBuilder.setMessage("Are you sure you want to close this app ?")
         alertDialogBuilder.setIcon(R.drawable.exit)
         alertDialogBuilder.setCancelable(false)
 
         alertDialogBuilder.setPositiveButton(
-            "Yes"
-        ) { dialog, which ->
+            "Yes") { _, _ ->
             finish()
             finishAffinity()
         }
 
         alertDialogBuilder.setNeutralButton(
             "No"
-        ) { dialog, which -> dialog.cancel() }
+        ) { dialog, _ -> dialog.cancel() }
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()

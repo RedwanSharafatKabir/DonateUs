@@ -1,33 +1,28 @@
-package com.donate.us.Authentication
+package com.donate.us.authentication
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.donate.us.InternetCheck.CheckAvailableInternet
-import com.donate.us.ModelClasses.StoreUserData
-import com.donate.us.SplashAndHome.MainActivity
+import com.donate.us.internetcheck.CheckAvailableInternet
+import com.donate.us.modelclasses.StoreUserData
+import com.donate.us.activities.MainActivity
+import com.donate.us.offlinedb.SharedPref
 import com.donate.us.databinding.ActivityRegisterBinding
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import java.io.FileNotFoundException
-import java.io.IOException
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
-    val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
+    private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var sharedPrefs: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +30,14 @@ class RegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        sharedPrefs = SharedPref()
+        sharedPrefs.init(applicationContext)
+
         auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().getReference("User Info")
         binding.registerProgressId.visibility = View.INVISIBLE
 
-        binding.signUp.setOnClickListener(View.OnClickListener {
+        binding.signUp.setOnClickListener{
             binding.registerProgressId.visibility = View.VISIBLE
             val username: String = binding.enterUsername.text.toString()
             val email: String = binding.enterEmail.text.toString()
@@ -48,10 +46,12 @@ class RegisterActivity : AppCompatActivity() {
 
             if(email.isEmpty() || password.isEmpty() || phone.isEmpty()){
                 Toast.makeText(applicationContext, "Enter all fields", Toast.LENGTH_SHORT).show()
+                binding.registerProgressId.visibility = View.INVISIBLE
             }
 
             if(password.length<8){
-                binding.enterPassword.setError("Minimum 8 characters")
+                binding.enterPassword.error = "Minimum 8 characters"
+                binding.registerProgressId.visibility = View.INVISIBLE
             }
 
             else {
@@ -63,15 +63,15 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Turn on internet", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
-        binding.loginPage.setOnClickListener(View.OnClickListener {
+        binding.loginPage.setOnClickListener{
             super.onBackPressed()
-        })
+        }
 
-        binding.backPage.setOnClickListener(View.OnClickListener {
+        binding.backPage.setOnClickListener{
             super.onBackPressed()
-        })
+        }
     }
 
     private fun signUpWithEmail(email: String, username: String, phone: String, password: String) {
@@ -79,10 +79,10 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(OnCompleteListener<AuthResult?> { task ->
+                        .addOnCompleteListener{ task ->
                             if (task.isSuccessful) {
                                 binding.registerProgressId.visibility = View.INVISIBLE
-                                rememberMethod(phone)
+                                sharedPrefs.write("phoneKey", phone)
                                 storeDataMethod(email, username, phone)
 
                                 binding.enterUsername.setText("")
@@ -98,7 +98,7 @@ class RegisterActivity : AppCompatActivity() {
                                 binding.registerProgressId.visibility = View.INVISIBLE
                                 Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
                             }
-                        })
+                        }
 
                 } else {
                     Toast.makeText(applicationContext, "SignUp failed", Toast.LENGTH_SHORT).show()
@@ -107,35 +107,17 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun rememberMethod(phone: String) {
-        try {
-            val fileOutputStream = openFileOutput("phoneKey.txt", MODE_PRIVATE)
-            fileOutputStream.write(phone.toByteArray())
-            fileOutputStream.close()
-
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
     private fun storeDataMethod(email: String, username: String, phone: String) {
-        val user: FirebaseUser? = auth.getCurrentUser()
+        val user: FirebaseUser? = auth.currentUser
 
         if (user != null) {
-            val profile: UserProfileChangeRequest
-            profile = UserProfileChangeRequest.Builder().setDisplayName(phone).build()
-            user.updateProfile(profile).addOnCompleteListener { task: Task<Void?>? -> }
+            val profile: UserProfileChangeRequest = UserProfileChangeRequest.Builder().setDisplayName(phone).build()
+            user.updateProfile(profile).addOnCompleteListener {}
         }
 
-        val storeUserData = StoreUserData(username, email, phone)
+        val storeUserData = StoreUserData(username, email, phone, "notSaved")
         databaseReference.child(phone).setValue(storeUserData)
 
         Toast.makeText(this@RegisterActivity, "Successfully Registered", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 }

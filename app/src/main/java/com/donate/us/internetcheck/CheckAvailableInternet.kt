@@ -1,4 +1,4 @@
-package com.donate.us.InternetCheck
+package com.donate.us.internetcheck
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -17,6 +17,7 @@ class CheckAvailableInternet {
             return when {
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
                 activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
 
                 else -> false
             }

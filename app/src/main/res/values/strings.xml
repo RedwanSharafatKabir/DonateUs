@@ -3,4 +3,9 @@
     <string name="resend_otp"><u>Resend OTP</u></string>
     <string name="login"><u>Login</u></string>
     <string name="signup"><u>Sign Up</u></string>
+
+    <string name="home">Home</string>
+    <string name="donateNow">Donate</string>
+    <string name="donateHistory">History</string>
+
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.donate.us.authentication.LoginActivity
 import com.donate.us.R
+import com.donate.us.animation.Typewriter
 import com.donate.us.databinding.ActivitySplashScreenBinding
 
 class WelcomeScreen: AppCompatActivity() {
@@ -23,6 +24,14 @@ class WelcomeScreen: AppCompatActivity() {
             val intent = Intent(this@WelcomeScreen, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        val writer1: Typewriter = binding.foodWaste
+        writer1.setCharacterDelay(150)
+        writer1.animateText(resources.getString(R.string.foodWaste))
+
+        val writer2: Typewriter = binding.management
+        writer2.setCharacterDelay(150)
+        writer2.animateText(resources.getString(R.string.management))
     }
 
     override fun onBackPressed() {

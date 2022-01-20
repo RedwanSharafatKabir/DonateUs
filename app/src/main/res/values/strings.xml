@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Food Waste Management</string>
+    <string name="foodWaste">Food Waste</string>
+    <string name="management">Management</string>
+
     <string name="resend_otp"><u>Resend OTP</u></string>
     <string name="login"><u>Login</u></string>
     <string name="signup"><u>Sign Up</u></string>

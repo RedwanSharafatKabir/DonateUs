@@ -14,5 +14,8 @@ class About : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.backFromAbout.setOnClickListener {
+            super.onBackPressed()
+        }
     }
 }

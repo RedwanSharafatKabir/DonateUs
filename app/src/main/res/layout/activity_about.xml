@@ -1,14 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.About">
+    tools:context=".activities.About"
+    android:background="#F1F3F6">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <ImageView
+                android:id="@+id/backFromAbout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="About"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:padding="18dp"
+            android:textColor="@color/black"
+            android:text="Version 1.0"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:padding="18dp"
+            android:textColor="@color/grey"
+            android:text="connect with us !"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:padding="18dp"
+            android:textColor="@color/grey"
+            android:text="eub.rifat@gmail.com"
+            android:drawableLeft="@drawable/ic_baseline_red_email_24"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:paddingLeft="18dp"
+            android:paddingTop="18dp"
+            android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+            android:textColor="@color/grey"
+            android:text="01816817211, 01816817211,"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:paddingLeft="18dp"
+            android:paddingBottom="18dp"
+            android:drawableLeft="@drawable/white_arrow_forward_24"
+            android:textColor="@color/grey"
+            android:text="01816817211, 01816817211"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:padding="16dp"
+            android:textColor="@color/grey"
+            android:text="www.fb.com"
+            android:drawableLeft="@drawable/ic_baseline_link_24"
+            android:textSize="16sp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About"
-        android:layout_gravity="center"/>
+        android:drawablePadding="10dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:textColor="@color/grey"
+        android:text="&#169; 2022 Team FWM - All right reserved"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="50dp"/>
 
 </FrameLayout>

@@ -12,22 +12,40 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/backFromProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:padding="10dp"/>
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="10dp"/>
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Profile"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/profileProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -80,80 +98,181 @@
             android:background="@color/white"
             android:drawableLeft="@drawable/ic_baseline_mail_24"
             android:drawablePadding="10dp"
-            android:padding="18dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/grey"
-            android:gravity="center|left"/>
+            android:gravity="center|left"
+            android:padding="18dp"
+            android:textColor="@color/black" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="2dp" />
 
         <TextView
             android:id="@+id/profilePhone"
-            android:fontFamily="sans-serif-light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:drawableLeft="@drawable/ic_baseline_local_phone_24"
             android:drawablePadding="10dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
             android:padding="18dp"
-            android:textColor="@color/grey"
-            android:gravity="center|left" />
+            android:textColor="@color/black" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="2dp" />
 
-        <TextView
-            android:id="@+id/profileAddress"
-            android:fontFamily="sans-serif-light"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/ic_baseline_address"
-            android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-            android:drawablePadding="10dp"
-            android:padding="18dp"
-            android:text="Address"
-            android:textColor="@color/grey"
-            android:gravity="center|left" />
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <EditText
+                android:id="@+id/profileAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_address"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:hint="Update Address"
+                android:padding="18dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/saveAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="2dp" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/profileChangeImage"
-            android:fontFamily="sans-serif-light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/ic_baseline_add_photo_alternate_24"
-            android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-            android:drawablePadding="10dp"
-            android:padding="18dp"
-            android:text="Change Image"
-            android:textColor="@color/grey"
-            android:gravity="center|left"/>
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_add_photo_alternate_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:text="Change Image"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="2dp" />
 
-        <TextView
-            android:id="@+id/profileLogOut"
-            android:fontFamily="sans-serif-light"
+        <LinearLayout
+            android:id="@+id/aboutPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/ic_baseline_login_24"
-            android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-            android:drawablePadding="10dp"
-            android:padding="18dp"
-            android:text="Log Out"
-            android:textColor="@color/grey"
-            android:gravity="center|left"/>
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_info_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:text="About"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <LinearLayout
+            android:id="@+id/profileLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_login_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:text="Log Out"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

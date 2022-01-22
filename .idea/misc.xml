@@ -15,6 +15,7 @@
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_history_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_link_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.22205128205128205" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.22205128205128205" />
@@ -22,10 +23,11 @@
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/light_grey_background.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/white_arrow_forward_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/yellow_rectangle.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_about.xml" value="0.209375" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_otp.xml" value="0.22" />
-        <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/layout/fragment_about.xml" value="0.209375" />

@@ -26,11 +26,11 @@ class WelcomeScreen: AppCompatActivity() {
         }
 
         val writer1: Typewriter = binding.foodWaste
-        writer1.setCharacterDelay(150)
+        writer1.setCharacterDelay(200)
         writer1.animateText(resources.getString(R.string.foodWaste))
 
         val writer2: Typewriter = binding.management
-        writer2.setCharacterDelay(150)
+        writer2.setCharacterDelay(200)
         writer2.animateText(resources.getString(R.string.management))
     }
 

@@ -4,19 +4,31 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.donate.us.databinding.ActivityMainBinding
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import com.donate.us.adapters.ViewPagerAdapter
 import com.donate.us.R
+import com.donate.us.internetcheck.CheckAvailableInternet
+import com.donate.us.offlinedb.SharedPref
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var binding: ActivityMainBinding
+    private lateinit var imgDbReference: DatabaseReference
+    private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
+    private lateinit var sharedPref: SharedPref
+    private lateinit var userPhone: String
+    private lateinit var profilePic: CircleImageView
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        sharedPref = SharedPref()
+        sharedPref.init(applicationContext)
+        userPhone = sharedPref.read("phoneKey", "").toString()
+        imgDbReference = FirebaseDatabase.getInstance().getReference("User Images")
+
+        profilePic = binding.profilePage
         viewPager = binding.viewPager2
         tabLayout = binding.tabLayout
 
@@ -50,9 +68,39 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
-        binding.profilePage.setOnClickListener {
+        if (checkAvailableInternet.checkInternet(applicationContext)) {
+            getProfileInfo(userPhone)
+        }
+        else {
+            Toast.makeText(applicationContext, "Turn on internet", Toast.LENGTH_SHORT).show()
+        }
+
+        profilePic.setOnClickListener {
             val intent = Intent(this@MainActivity, Profile::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun getProfileInfo(userPhone: String) {
+        try {
+            imgDbReference.child(userPhone).addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    try {
+                        val imageUrl = snapshot.child("avatar").value.toString()
+                        Picasso.get().load(imageUrl).into(profilePic)
+
+                    } catch (e: java.lang.Exception) {
+                        Log.i("Error", e.message.toString())
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.i("Error", error.message)
+                }
+            })
+        } catch (e: java.lang.Exception) {
+            Log.i("Error", e.message.toString())
         }
     }
 

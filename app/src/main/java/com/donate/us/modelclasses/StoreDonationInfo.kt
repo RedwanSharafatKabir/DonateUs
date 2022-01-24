@@ -2,7 +2,11 @@ package com.donate.us.modelclasses
 
 class StoreDonationInfo(
     private var userName: String,
-    private var foodTypes: String,
+    private var rice: String,
+    private var egg: String,
+    private var vegetable: String,
+    private var chicken: String,
+    private var redMeat: String,
     private var quantityPeople: String,
     private var avatar: String,
     private var pickAdress: String,
@@ -18,12 +22,44 @@ class StoreDonationInfo(
         this.userName = userName!!
     }
 
-    fun getFoodTypes(): String {
-        return foodTypes
+    fun getRice(): String {
+        return rice
     }
 
-    fun setFoodTypes(foodTypes: String?) {
-        this.foodTypes = foodTypes!!
+    fun setRice(rice: String?) {
+        this.rice = rice!!
+    }
+
+    fun getEgg(): String {
+        return egg
+    }
+
+    fun setEgg(egg: String?) {
+        this.egg = egg!!
+    }
+
+    fun getVegetable(): String {
+        return vegetable
+    }
+
+    fun setVegetable(vegetable: String?) {
+        this.vegetable = vegetable!!
+    }
+
+    fun getChicken(): String {
+        return chicken
+    }
+
+    fun setChicken(chicken: String?) {
+        this.chicken = chicken!!
+    }
+
+    fun getRedMeat(): String {
+        return redMeat
+    }
+
+    fun setRedMeat(redMeat: String?) {
+        this.redMeat = redMeat!!
     }
 
     fun getQuantityPeople(): String {

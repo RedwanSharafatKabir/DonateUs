@@ -37,7 +37,6 @@ class DonateNow : Fragment() {
     private lateinit var vegetable: String
     private lateinit var redMeat: String
     private lateinit var chicken: String
-    private lateinit var foodTypes: String
     private var foodName = "donated_food"
     private var uriProfileImage: Uri? = null
     private var countPeople = 1
@@ -106,7 +105,7 @@ class DonateNow : Fragment() {
             if(binding.egg.isChecked){ egg = "Egg" } else if(!binding.egg.isChecked){ egg = "" }
             if(binding.vegetable.isChecked){ vegetable = "Vegetable" } else if(!binding.vegetable.isChecked){ vegetable = "" }
             if(binding.chicken.isChecked){ chicken = "Chicken" } else if(!binding.chicken.isChecked){ chicken = "" }
-            if(binding.redMeat.isChecked){ redMeat = "Red_Meat" } else if(!binding.redMeat.isChecked){ redMeat = "" }
+            if(binding.redMeat.isChecked){ redMeat = "Red Meat" } else if(!binding.redMeat.isChecked){ redMeat = "" }
 
             if(rice.isEmpty() && egg.isEmpty() && vegetable.isEmpty() && chicken.isEmpty() && redMeat.isEmpty()){
                 Toast.makeText(activity, "Select Food Types", Toast.LENGTH_SHORT).show()
@@ -117,10 +116,8 @@ class DonateNow : Fragment() {
             }
 
             else if(binding.imageName.text.toString().isNotEmpty()) {
-                foodTypes = "$rice $egg $vegetable $chicken $redMeat"
-
                 if(checkAvailableInternet.checkInternet(requireActivity())){
-                    uploadImageToFirebase(foodTypes, foodAddress, peopleQuantity, uriProfileImage!!)
+                    uploadImageToFirebase(rice, egg, vegetable, chicken, redMeat, foodAddress, peopleQuantity, uriProfileImage!!)
 
                 } else {
                     Toast.makeText(activity, "Turn on Internet", Toast.LENGTH_SHORT).show()
@@ -148,7 +145,8 @@ class DonateNow : Fragment() {
         }
     }
 
-    private fun uploadImageToFirebase(foodTypes: String, foodAddress: String, peopleQuantity: String, uriProfileImage: Uri) {
+    private fun uploadImageToFirebase(rice: String, egg: String, vegetable: String, chicken: String,
+                                      redMeat: String, foodAddress: String, peopleQuantity: String, uriProfileImage: Uri) {
         binding.donateProgress.visibility = View.VISIBLE
 
         storageReference = FirebaseStorage.getInstance().getReference("food images/${System.currentTimeMillis()}$foodName.jpg")
@@ -158,7 +156,7 @@ class DonateNow : Fragment() {
                 storageReference.downloadUrl.addOnSuccessListener { uri ->
                     profileImageUrl = uri.toString()
 
-                    saveUserInfo(foodTypes, foodAddress, peopleQuantity, profileImageUrl)
+                    saveUserInfo(rice, egg, vegetable, chicken, redMeat, foodAddress, peopleQuantity, profileImageUrl)
 
                 }.addOnFailureListener { e ->
                     binding.donateProgress.visibility = View.GONE
@@ -173,7 +171,8 @@ class DonateNow : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun saveUserInfo(foodTypes: String, foodAddress: String, peopleQuantity: String, profileImageUrl: String) {
+    private fun saveUserInfo(rice: String, egg: String, vegetable: String, chicken: String,
+                             redMeat: String, foodAddress: String, peopleQuantity: String, profileImageUrl: String) {
         var userName: String
         val df = SimpleDateFormat("dd/M/yyyy")
         val tf = SimpleDateFormat("hh:mm:ss")
@@ -184,7 +183,7 @@ class DonateNow : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userName = snapshot.child("userName").value.toString()
 
-                val storeDonationInfo = StoreDonationInfo(userName, foodTypes, peopleQuantity,
+                val storeDonationInfo = StoreDonationInfo(userName, rice, egg, vegetable, chicken, redMeat, peopleQuantity,
                     profileImageUrl, foodAddress, currentDate, currentTime)
 
                 donationReference.child(userPhone).child(currentTime.toString()).setValue(storeDonationInfo)

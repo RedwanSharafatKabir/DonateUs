@@ -96,26 +96,11 @@
             android:drawablePadding="10dp"
             android:fontFamily="sans-serif"
             android:gravity="center|left"
-            android:paddingLeft="18dp"
-            android:paddingTop="18dp"
+            android:padding="18dp"
             android:drawableLeft="@drawable/ic_baseline_local_phone_24"
             android:textColor="@color/grey"
-            android:text="01816817211, 01816817211,"
+            android:text="01988185612, 01557631000"
             android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:drawablePadding="10dp"
-            android:fontFamily="sans-serif"
-            android:gravity="center|left"
-            android:paddingLeft="18dp"
-            android:paddingBottom="18dp"
-            android:drawableLeft="@drawable/white_arrow_forward_24"
-            android:textColor="@color/grey"
-            android:text="01816817211, 01816817211"
-            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"

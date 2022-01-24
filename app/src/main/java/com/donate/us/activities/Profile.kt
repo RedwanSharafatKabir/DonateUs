@@ -29,14 +29,14 @@ class Profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var sharedPref: SharedPref
     private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var imgDbReference: DatabaseReference
     private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
     private lateinit var userPhone: String
     private lateinit var address: String
     private lateinit var name: String
     private lateinit var email: String
     private lateinit var profilePic: CircleImageView
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var imgDbReference: DatabaseReference
     private lateinit var uriProfileImage: Uri
     private lateinit var storageReference: StorageReference
     private lateinit var profileImageUrl: String

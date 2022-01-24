@@ -3,12 +3,388 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewpagers.DonateNow">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".viewpagers.DonateNow"
+    android:background="#F1F3F6">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="70dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addressCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <EditText
+                        android:id="@+id/enterAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/white_border"
+                        android:drawableLeft="@drawable/ic_baseline_add_location_alt_24"
+                        android:drawablePadding="10dp"
+                        android:padding="18dp"
+                        android:hint="Enter pick address"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:gravity="center|left"
+                        android:inputType="textMultiLine"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/viewFoodTypes"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="80dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="80"
+                            android:background="@color/white"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center|left"
+                            android:padding="18dp"
+                            android:textColor="@color/black"
+                            android:text="Types of food"
+                            android:textSize="16sp"/>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20">
+
+                            <ImageView
+                                android:id="@+id/expandView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                android:padding="10dp"/>
+
+                            <ImageView
+                                android:id="@+id/shrinkView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                                android:padding="10dp"/>
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/foodTypesExpandView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="145dp">
+
+                    <CheckBox
+                        android:id="@+id/rice"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:layoutDirection="rtl"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="10dp"
+                        android:text="Rice"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <CheckBox
+                        android:id="@+id/egg"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:layoutDirection="rtl"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="5dp"
+                        android:text="Eggs"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <CheckBox
+                        android:id="@+id/vegetable"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:layoutDirection="rtl"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="5dp"
+                        android:text="Vegetables"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <CheckBox
+                        android:id="@+id/chicken"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:layoutDirection="rtl"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="5dp"
+                        android:text="Chicken"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <CheckBox
+                        android:id="@+id/redMeat"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:drawablePadding="10dp"
+                        android:layoutDirection="rtl"
+                        android:paddingLeft="18dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="Red Meat"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/quantityCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@color/white"
+                        android:weightSum="100"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="60"
+                            android:text="Quantity of people:"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif"
+                            android:layout_gravity="center"
+                            android:gravity="center|left"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="12"
+                            app:cardCornerRadius="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/minus"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_horizontal_rule_24"
+                                android:background="#DD333333"
+                                android:padding="10dp"
+                                android:layout_gravity="center" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="15"
+                            app:cardCornerRadius="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp">
+
+                            <TextView
+                                android:id="@+id/peopleCountNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="1"
+                                android:textColor="#000"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:background="#D3D3D3"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="12"
+                            app:cardCornerRadius="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/plus"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_baseline_add_24"
+                                android:background="#DD333333"
+                                android:padding="10dp"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imageUploadCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="245dp"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@color/white"
+                        android:weightSum="100"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="70"
+                            android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Upload a food image:"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="sans-serif"
+                                android:gravity="center|left"/>
+
+                            <TextView
+                                android:id="@+id/imageName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:fontFamily="sans-serif"
+                                android:gravity="center|left"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/chooseImageFile"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="30"
+                            android:text="Choose File"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:background="@drawable/green_shape"
+                            android:padding="10dp"
+                            android:layout_margin="10dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/donateNow"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center|bottom"
+        android:background="#F1F3F6"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/donateProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true"
+            android:layout_gravity="bottom"/>
+
+        <Button
+            android:id="@+id/post"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Post"
+            android:textAllCaps="true"
+            android:layout_margin="10dp"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
 
 </FrameLayout>

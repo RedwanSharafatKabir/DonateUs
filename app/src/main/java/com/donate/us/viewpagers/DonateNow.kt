@@ -21,6 +21,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.updatePadding
 
 class DonateNow : Fragment() {
 
@@ -43,6 +46,8 @@ class DonateNow : Fragment() {
     private lateinit var storageReference: StorageReference
     private lateinit var donationReference: DatabaseReference
     private lateinit var userReference: DatabaseReference
+    private lateinit var progressDialog: AlertDialog
+    private lateinit var builder: AlertDialog.Builder
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -58,7 +63,6 @@ class DonateNow : Fragment() {
         expandLayout = binding.foodTypesExpandView
         expandLayout.visibility = View.INVISIBLE
         binding.shrinkView.visibility = View.INVISIBLE
-        binding.donateProgress.visibility = View.GONE
         binding.imageName.visibility = View.GONE
 
         binding.viewFoodTypes.setOnClickListener {
@@ -147,7 +151,9 @@ class DonateNow : Fragment() {
 
     private fun uploadImageToFirebase(rice: String, egg: String, vegetable: String, chicken: String,
                                       redMeat: String, foodAddress: String, peopleQuantity: String, uriProfileImage: Uri) {
-        binding.donateProgress.visibility = View.VISIBLE
+        getDialogProgressBar()
+        progressDialog = getDialogProgressBar().create()
+        progressDialog.show()
 
         storageReference = FirebaseStorage.getInstance().getReference("food images/${System.currentTimeMillis()}$foodName.jpg")
 
@@ -159,13 +165,13 @@ class DonateNow : Fragment() {
                     saveUserInfo(rice, egg, vegetable, chicken, redMeat, foodAddress, peopleQuantity, profileImageUrl)
 
                 }.addOnFailureListener { e ->
-                    binding.donateProgress.visibility = View.GONE
+                    progressDialog.dismiss()
                     Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
                 }
 
             }.addOnFailureListener {
                 Toast.makeText(activity, "Upload Failed", Toast.LENGTH_LONG).show()
-                binding.donateProgress.visibility = View.GONE
+                progressDialog.dismiss()
             }
         }
     }
@@ -187,17 +193,16 @@ class DonateNow : Fragment() {
                     profileImageUrl, foodAddress, currentDate, currentTime)
 
                 donationReference.child(userPhone).child(currentTime.toString()).setValue(storeDonationInfo)
-
-                binding.donateProgress.visibility = View.GONE
+                progressDialog.dismiss()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.i("Error", error.message)
-                binding.donateProgress.visibility = View.GONE
+                progressDialog.dismiss()
             }
         })
 
-        binding.donateProgress.visibility = View.GONE
+        progressDialog.dismiss()
         Toast.makeText(activity, "Successfully Uploaded", Toast.LENGTH_SHORT).show()
 
         binding.enterAddress.setText("")
@@ -208,5 +213,23 @@ class DonateNow : Fragment() {
         binding.vegetable.isChecked = false
         binding.redMeat.isChecked = false
         binding.chicken.isChecked = false
+    }
+
+    private fun getDialogProgressBar(): AlertDialog.Builder {
+        builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Uploading...")
+
+        val progressBar = ProgressBar(requireContext())
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        progressBar.layoutParams = lp
+        progressBar.updatePadding(bottom = 50)
+
+        builder.setView(progressBar)
+
+        return builder
     }
 }

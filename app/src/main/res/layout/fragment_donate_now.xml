@@ -367,14 +367,6 @@
         android:background="#F1F3F6"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/donateProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:indeterminate="true"
-            android:layout_gravity="bottom"/>
-
         <Button
             android:id="@+id/post"
             android:layout_width="match_parent"

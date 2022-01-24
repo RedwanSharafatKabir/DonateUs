@@ -1,5 +1,7 @@
 package com.donate.us.activities
 
+import android.R
+import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.donate.us.databinding.ActivityAboutBinding
@@ -17,5 +19,6 @@ class About : AppCompatActivity() {
         binding.backFromAbout.setOnClickListener {
             super.onBackPressed()
         }
+
     }
 }

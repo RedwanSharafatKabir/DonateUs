@@ -190,7 +190,7 @@ class DonateNow : Fragment() {
                 userName = snapshot.child("userName").value.toString()
 
                 val storeDonationInfo = StoreDonationInfo(userName, rice, egg, vegetable, chicken, redMeat, peopleQuantity,
-                    profileImageUrl, foodAddress, currentDate, currentTime)
+                    profileImageUrl, foodAddress, currentDate, currentTime, "unpaid")
 
                 donationReference.child(userPhone).child(currentTime.toString()).setValue(storeDonationInfo)
                 progressDialog.dismiss()

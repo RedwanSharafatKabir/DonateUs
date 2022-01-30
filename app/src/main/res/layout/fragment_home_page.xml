@@ -5,10 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".viewpagers.HomePage">
 
+    <ProgressBar
+        android:id="@+id/homeProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:indeterminate="true" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/noPost"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/home"
+        android:text="No donation post yet !"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
         android:layout_gravity="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/donationList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </FrameLayout>

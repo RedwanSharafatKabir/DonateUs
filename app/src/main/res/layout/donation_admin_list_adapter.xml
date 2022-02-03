@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="100"
                 android:padding="10dp">
 
                 <TextView
@@ -35,22 +34,12 @@
 
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="80"
                     android:layout_gravity="center"
                     android:gravity="center|left"
                     android:textStyle="bold"
                     android:paddingLeft="5dp"/>
-
-                <ImageView
-                    android:id="@+id/deleteBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="20"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:src="@drawable/ic_outline_delete_sweep_24" />
 
             </LinearLayout>
 

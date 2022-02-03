@@ -5,12 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.donate.us.databinding.ActivityMainBinding
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import com.donate.us.adapters.ViewPagerAdapter
 import com.donate.us.R
+import com.donate.us.adapters.AdminViewPagerAdapter
 import com.donate.us.internetcheck.CheckAvailableInternet
 import com.donate.us.offlinedb.SharedPref
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
     private lateinit var sharedPref: SharedPref
     private lateinit var userPhone: String
+    private lateinit var userType: String
     private lateinit var profilePic: CircleImageView
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -40,38 +43,71 @@ class MainActivity : AppCompatActivity() {
         sharedPref = SharedPref()
         sharedPref.init(applicationContext)
         userPhone = sharedPref.read("phoneKey", "").toString()
+        userType = sharedPref.read("userTypeKey", "").toString()
         imgDbReference = FirebaseDatabase.getInstance().getReference("User Images")
 
-        profilePic = binding.profilePage
-        viewPager = binding.viewPager2
-        tabLayout = binding.tabLayout
+        if(userType.equals("Donor")){
+            binding.viewPager2.visibility = View.VISIBLE
+            binding.tabLayout.visibility = View.VISIBLE
+            binding.adminViewPager2.visibility = View.GONE
+            binding.adminTabLayout.visibility = View.GONE
 
-        val adapter = ViewPagerAdapter(this)
-        viewPager.adapter = adapter
+            profilePic = binding.profilePage
+            viewPager = binding.viewPager2
+            tabLayout = binding.tabLayout
 
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
-            when(position){
-                0 -> {
-                    tab.text = resources.getText(R.string.home)
-                    tab.icon = resources.getDrawable(R.drawable.ic_baseline_home_24, theme)
+            viewPager.adapter = ViewPagerAdapter(this)
+
+            TabLayoutMediator(tabLayout, viewPager){tab, position ->
+                when(position){
+                    0 -> {
+                        tab.text = resources.getText(R.string.home)
+                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_home_24, theme)
+                    }
+
+                    1 -> {
+                        tab.text = resources.getText(R.string.donateNow)
+                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_card_giftcard_24, theme)
+                    }
+
+                    2 -> {
+                        tab.text = resources.getText(R.string.donateHistory)
+                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_history_24, theme)
+                    }
                 }
+            }.attach()
+        }
 
-                1 -> {
-                    tab.text = resources.getText(R.string.donateNow)
-                    tab.icon = resources.getDrawable(R.drawable.ic_baseline_card_giftcard_24, theme)
-                }
+        if(userType.equals("Admin")){
+            binding.viewPager2.visibility = View.GONE
+            binding.tabLayout.visibility = View.GONE
+            binding.adminViewPager2.visibility = View.VISIBLE
+            binding.adminTabLayout.visibility = View.VISIBLE
 
-                2 -> {
-                    tab.text = resources.getText(R.string.donateHistory)
-                    tab.icon = resources.getDrawable(R.drawable.ic_baseline_history_24, theme)
+            profilePic = binding.profilePage
+            viewPager = binding.adminViewPager2
+            tabLayout = binding.adminTabLayout
+
+            viewPager.adapter = AdminViewPagerAdapter(this)
+
+            TabLayoutMediator(tabLayout, viewPager){tab, position ->
+                when(position){
+                    0 -> {
+                        tab.text = resources.getText(R.string.home)
+                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_home_24, theme)
+                    }
+
+                    1 -> {
+                        tab.text = resources.getText(R.string.donateHistory)
+                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_card_giftcard_24, theme)
+                    }
                 }
-            }
-        }.attach()
+            }.attach()
+        }
 
         if (checkAvailableInternet.checkInternet(applicationContext)) {
             getProfileInfo(userPhone)
-        }
-        else {
+        } else {
             Toast.makeText(applicationContext, "Turn on internet", Toast.LENGTH_SHORT).show()
         }
 

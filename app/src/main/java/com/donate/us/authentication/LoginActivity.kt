@@ -26,7 +26,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
     private var currentUserPhone: String = ""
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var userReference: DatabaseReference
+    private lateinit var adminReference: DatabaseReference
     private lateinit var sharedPrefs: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,8 @@ class LoginActivity : AppCompatActivity() {
         sharedPrefs.init(applicationContext)
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference("User Info")
+        userReference = FirebaseDatabase.getInstance().getReference("User Info")
+        adminReference = FirebaseDatabase.getInstance().getReference("Admin Info")
         binding.loginProgressId.visibility = View.INVISIBLE
 
         val getUserPhone: EditText = binding.enterUserPhone
@@ -69,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                 if (checkAvailableInternet.checkInternet(applicationContext)) {
                     // Access User Email
                     try {
-                        databaseReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
+                        userReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     try {
                                         email = snapshot.value.toString()
@@ -78,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
                                                 if (task.isSuccessful) {
                                                     binding.loginProgressId.visibility = View.INVISIBLE
                                                     sharedPrefs.write("phoneKey", phone)
+                                                    sharedPrefs.write("userTypeKey", "Donor")
 
                                                     getUserPhone.setText("")
                                                     getPassword.setText("")
@@ -107,8 +110,49 @@ class LoginActivity : AppCompatActivity() {
                             })
 
                     } catch (e: Exception) {
-                        Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                        binding.loginProgressId.visibility = View.INVISIBLE
+                        try {
+                            adminReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    try {
+                                        email = snapshot.value.toString()
+                                        auth.signInWithEmailAndPassword(email, password)
+                                            .addOnCompleteListener{ task ->
+                                                if (task.isSuccessful) {
+                                                    binding.loginProgressId.visibility = View.INVISIBLE
+                                                    sharedPrefs.write("phoneKey", phone)
+                                                    sharedPrefs.write("userTypeKey", "Admin")
+
+                                                    getUserPhone.setText("")
+                                                    getPassword.setText("")
+
+                                                    val it = Intent(this@LoginActivity, MainActivity::class.java)
+                                                    startActivity(it)
+                                                    finish()
+
+                                                } else {
+                                                    binding.loginProgressId.visibility = View.INVISIBLE
+                                                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
+
+                                    } catch (e: Exception) {
+                                        binding.loginProgressId.visibility = View.INVISIBLE
+                                        Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                        Log.i("DB_Error", e.message.toString())
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    binding.loginProgressId.visibility = View.INVISIBLE
+                                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                    Log.i("DB_Error", error.message)
+                                }
+                            })
+
+                        } catch (e: Exception) {
+                            Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                            binding.loginProgressId.visibility = View.INVISIBLE
+                        }
                     }
 
                 } else {

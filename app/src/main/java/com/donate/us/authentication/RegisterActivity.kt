@@ -21,7 +21,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
     private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var userReference: DatabaseReference
+    private lateinit var adminReference: DatabaseReference
     private lateinit var sharedPrefs: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,8 @@ class RegisterActivity : AppCompatActivity() {
         sharedPrefs.init(applicationContext)
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference("User Info")
+        userReference = FirebaseDatabase.getInstance().getReference("User Info")
+        adminReference = FirebaseDatabase.getInstance().getReference("Admin Info")
         binding.registerProgressId.visibility = View.INVISIBLE
 
         binding.signUp.setOnClickListener{
@@ -46,6 +48,11 @@ class RegisterActivity : AppCompatActivity() {
 
             if(email.isEmpty() || password.isEmpty() || phone.isEmpty()){
                 Toast.makeText(applicationContext, "Enter all fields", Toast.LENGTH_SHORT).show()
+                binding.registerProgressId.visibility = View.INVISIBLE
+            }
+
+            if(!binding.donor.isChecked && !binding.admin.isChecked){
+                Toast.makeText(applicationContext, "Select user type", Toast.LENGTH_SHORT).show()
                 binding.registerProgressId.visibility = View.INVISIBLE
             }
 
@@ -75,15 +82,16 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun signUpWithEmail(email: String, username: String, phone: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener{ task ->
-                            if (task.isSuccessful) {
-                                binding.registerProgressId.visibility = View.INVISIBLE
-                                sharedPrefs.write("phoneKey", phone)
-                                storeDataMethod(email, username, phone)
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener{ task ->
+                        if (task.isSuccessful) {
+                            binding.registerProgressId.visibility = View.INVISIBLE
+                            sharedPrefs.write("phoneKey", phone)
+
+                            if(binding.donor.isChecked){
+                                storeDonorData(email, username, phone)
 
                                 binding.enterUsername.setText("")
                                 binding.enterEmail.setText("")
@@ -93,21 +101,36 @@ class RegisterActivity : AppCompatActivity() {
                                 val it = Intent(this@RegisterActivity, MainActivity::class.java)
                                 startActivity(it)
                                 finish()
-
-                            } else {
-                                binding.registerProgressId.visibility = View.INVISIBLE
-                                Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
                             }
-                        }
 
-                } else {
-                    Toast.makeText(applicationContext, "SignUp failed", Toast.LENGTH_SHORT).show()
-                    binding.registerProgressId.visibility = View.INVISIBLE
-                }
+                            if(binding.admin.isChecked){
+                                storeAdminData(email, username, phone)
+
+                                binding.enterUsername.setText("")
+                                binding.enterEmail.setText("")
+                                binding.enterPassword.setText("")
+                                binding.enterPhone.setText("")
+
+                                val it = Intent(this@RegisterActivity, MainActivity::class.java)
+                                startActivity(it)
+                                finish()
+                            }
+
+                        } else {
+                            binding.registerProgressId.visibility = View.INVISIBLE
+                            Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+            } else {
+                Toast.makeText(applicationContext, "SignUp failed", Toast.LENGTH_SHORT).show()
+                binding.registerProgressId.visibility = View.INVISIBLE
             }
+        }
     }
 
-    private fun storeDataMethod(email: String, username: String, phone: String) {
+    private fun storeDonorData(email: String, username: String, phone: String) {
+        sharedPrefs.write("userTypeKey", "Donor")
         val user: FirebaseUser? = auth.currentUser
 
         if (user != null) {
@@ -116,7 +139,22 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         val storeUserData = StoreUserData(username, email, phone, "notSaved")
-        databaseReference.child(phone).setValue(storeUserData)
+        userReference.child(phone).setValue(storeUserData)
+
+        Toast.makeText(this@RegisterActivity, "Successfully Registered", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun storeAdminData(email: String, username: String, phone: String) {
+        sharedPrefs.write("userTypeKey", "Admin")
+        val user: FirebaseUser? = auth.currentUser
+
+        if (user != null) {
+            val profile: UserProfileChangeRequest = UserProfileChangeRequest.Builder().setDisplayName(phone).build()
+            user.updateProfile(profile).addOnCompleteListener {}
+        }
+
+        val storeUserData = StoreUserData(username, email, phone, "notSaved")
+        adminReference.child(phone).setValue(storeUserData)
 
         Toast.makeText(this@RegisterActivity, "Successfully Registered", Toast.LENGTH_SHORT).show()
     }

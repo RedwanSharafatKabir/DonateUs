@@ -19,28 +19,23 @@ import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
-class DonationListAdapter(
+class DonationAdminListAdapter(
     private var context: Context,
     private var storeDonationInfoArrayList:  ArrayList<StoreDonationInfo>
-    ): RecyclerView.Adapter<DonationListAdapter.MyViewHolder>() {
+): RecyclerView.Adapter<DonationAdminListAdapter.MyViewHolder>() {
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var sharedPref: SharedPref
     private lateinit var userPhone: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.donation_list_adapter, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.donation_admin_list_adapter, parent, false)
 
         return MyViewHolder(view)
     }
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        sharedPref = SharedPref()
-        sharedPref.init(context)
-        userPhone = sharedPref.read("phoneKey", "").toString()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Donation Info")
-
         val storeDonationInfo: StoreDonationInfo = storeDonationInfoArrayList[position]
 
         var foods = ""
@@ -90,31 +85,6 @@ class DonationListAdapter(
             holder.status.background = ContextCompat.getDrawable(context, R.drawable.red_border_rectangle)
             holder.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_pending_24,0)
         }
-
-        holder.delete.setOnClickListener{
-            val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-            alertDialogBuilder.setTitle("DELETE !")
-            alertDialogBuilder.setMessage("Do you want to delete this post?")
-            alertDialogBuilder.setCancelable(false)
-
-            alertDialogBuilder.setPositiveButton(
-                "Yes") { _, _ ->
-                try {
-                    databaseReference.child(userPhone).child(time).removeValue()
-                    Toast.makeText(context, "Post Deleted", Toast.LENGTH_SHORT).show()
-
-                } catch (e: Exception) {
-                    Log.i("Error_Db", e.message.toString())
-                }
-            }
-
-            alertDialogBuilder.setNeutralButton(
-                "No"
-            ) { dialog, _ -> dialog.cancel() }
-
-            val alertDialog = alertDialogBuilder.create()
-            alertDialog.show()
-        }
     }
 
     override fun getItemCount(): Int {
@@ -128,7 +98,6 @@ class DonationListAdapter(
         var pickLocation: TextView
         var status: TextView
         var image: ImageView
-        var delete: ImageView
 
         init {
             name = itemView.findViewById(R.id.userName)
@@ -137,7 +106,6 @@ class DonationListAdapter(
             pickLocation = itemView.findViewById(R.id.pickLocation)
             status = itemView.findViewById(R.id.status)
             image = itemView.findViewById(R.id.foodImage)
-            delete = itemView.findViewById(R.id.deleteBtn)
         }
     }
 }

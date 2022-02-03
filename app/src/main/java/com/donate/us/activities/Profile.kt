@@ -34,8 +34,10 @@ class Profile : AppCompatActivity() {
     private lateinit var address: String
     private lateinit var name: String
     private lateinit var email: String
+    private lateinit var userType: String
     private lateinit var profilePic: CircleImageView
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var donorReference: DatabaseReference
+    private lateinit var adminReference: DatabaseReference
     private lateinit var imgDbReference: DatabaseReference
     private lateinit var uriProfileImage: Uri
     private lateinit var storageReference: StorageReference
@@ -50,9 +52,11 @@ class Profile : AppCompatActivity() {
         sharedPref = SharedPref()
         sharedPref.init(applicationContext)
         userPhone = sharedPref.read("phoneKey", "").toString()
+        userType = sharedPref.read("userTypeKey", "").toString()
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference("User Info")
+        donorReference = FirebaseDatabase.getInstance().getReference("User Info")
+        adminReference = FirebaseDatabase.getInstance().getReference("Admin Info")
         imgDbReference = FirebaseDatabase.getInstance().getReference("User Images")
         profilePic = binding.profileImage
 
@@ -94,56 +98,121 @@ class Profile : AppCompatActivity() {
     }
 
     private fun getProfileInfo(userPhone: String) {
-        databaseReference.child(userPhone).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                try {
-                    address = snapshot.child("userAddress").value.toString()
-                    name = snapshot.child("userName").value.toString()
-                    email = snapshot.child("userEmail").value.toString()
-
-                    binding.profileName.text = name
-                    binding.profileEmail.text = email
-                    binding.profilePhone.text = userPhone
-
-                    if(address != "notSaved"){
-                        binding.profileAddress.setText(address)
-                    }
-
-                    // Get user image
+        if(userType.equals("Donor")) {
+            donorReference.child(userPhone).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
                     try {
-                        imgDbReference.child(userPhone).addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                try {
-                                    val imageUrl = snapshot.child("avatar").value.toString()
-                                    Picasso.get().load(imageUrl).into(profilePic)
-                                    binding.profileProgress.visibility = View.INVISIBLE
+                        address = snapshot.child("userAddress").value.toString()
+                        name = snapshot.child("userName").value.toString()
+                        email = snapshot.child("userEmail").value.toString()
 
-                                } catch (e: java.lang.Exception) {
-                                    binding.profileProgress.visibility = View.INVISIBLE
-                                }
-                            }
+                        binding.profileName.text = name
+                        binding.profileEmail.text = email
+                        binding.profilePhone.text = userPhone
 
-                            override fun onCancelled(error: DatabaseError) {
-                                binding.profileProgress.visibility = View.INVISIBLE
-                                Log.i("Error", error.message)
-                            }
-                        })
-                    } catch (e: java.lang.Exception) {
+                        if (address != "notSaved") {
+                            binding.profileAddress.setText(address)
+                        }
+
+                        // Get user image
+                        try {
+                            imgDbReference.child(userPhone)
+                                .addValueEventListener(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        try {
+                                            val imageUrl = snapshot.child("avatar").value.toString()
+                                            Picasso.get().load(imageUrl).into(profilePic)
+                                            binding.profileProgress.visibility = View.INVISIBLE
+
+                                        } catch (e: java.lang.Exception) {
+                                            binding.profileProgress.visibility = View.INVISIBLE
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        binding.profileProgress.visibility = View.INVISIBLE
+                                        Log.i("Error", error.message)
+                                    }
+                                })
+                        } catch (e: java.lang.Exception) {
+                            binding.profileProgress.visibility = View.INVISIBLE
+                            Log.i("Error", e.message.toString())
+                        }
+
+                    } catch (e: Exception) {
                         binding.profileProgress.visibility = View.INVISIBLE
-                        Log.i("Error", e.message.toString())
+                        Toast.makeText(
+                            applicationContext,
+                            "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                } catch (e: Exception){
-                    binding.profileProgress.visibility = View.INVISIBLE
-                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                binding.profileProgress.visibility = View.INVISIBLE
-                Log.i("Error", error.message)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    binding.profileProgress.visibility = View.INVISIBLE
+                    Log.i("Error", error.message)
+                }
+            })
+        }
+
+        if(userType.equals("Admin")) {
+            adminReference.child(userPhone).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    try {
+                        address = snapshot.child("userAddress").value.toString()
+                        name = snapshot.child("userName").value.toString()
+                        email = snapshot.child("userEmail").value.toString()
+
+                        binding.profileName.text = name
+                        binding.profileEmail.text = email
+                        binding.profilePhone.text = userPhone
+
+                        if (address != "notSaved") {
+                            binding.profileAddress.setText(address)
+                        }
+
+                        // Get user image
+                        try {
+                            imgDbReference.child(userPhone)
+                                .addValueEventListener(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        try {
+                                            val imageUrl = snapshot.child("avatar").value.toString()
+                                            Picasso.get().load(imageUrl).into(profilePic)
+                                            binding.profileProgress.visibility = View.INVISIBLE
+
+                                        } catch (e: java.lang.Exception) {
+                                            binding.profileProgress.visibility = View.INVISIBLE
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        binding.profileProgress.visibility = View.INVISIBLE
+                                        Log.i("Error", error.message)
+                                    }
+                                })
+                        } catch (e: java.lang.Exception) {
+                            binding.profileProgress.visibility = View.INVISIBLE
+                            Log.i("Error", e.message.toString())
+                        }
+
+                    } catch (e: Exception) {
+                        binding.profileProgress.visibility = View.INVISIBLE
+                        Toast.makeText(
+                            applicationContext,
+                            "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    binding.profileProgress.visibility = View.INVISIBLE
+                    Log.i("Error", error.message)
+                }
+            })
+        }
     }
 
     private var someActivityResultLauncher = registerForActivityResult(
@@ -205,12 +274,20 @@ class Profile : AppCompatActivity() {
 
     private fun saveAllInfo(name: String, email: String, userPhone: String, enterAddress: String) {
         if (checkAvailableInternet.checkInternet(applicationContext)) {
-            val storeUserData = StoreUserData(name, email, userPhone, enterAddress)
-            databaseReference.child(userPhone).setValue(storeUserData)
+            if(userType.equals("Donor")) {
+                val storeUserData = StoreUserData(name, email, userPhone, enterAddress)
+                donorReference.child(userPhone).setValue(storeUserData)
+            }
+
+            if(userType.equals("Admin")) {
+                val storeUserData = StoreUserData(name, email, userPhone, enterAddress)
+                adminReference.child(userPhone).setValue(storeUserData)
+            }
 
             Toast.makeText(this@Profile, "Address updated", Toast.LENGTH_SHORT).show()
             binding.profileProgress.visibility = View.INVISIBLE
         }
+
         else {
             Toast.makeText(applicationContext, "Turn on internet", Toast.LENGTH_SHORT).show()
             binding.profileProgress.visibility = View.INVISIBLE

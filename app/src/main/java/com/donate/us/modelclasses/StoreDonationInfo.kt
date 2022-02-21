@@ -2,6 +2,7 @@ package com.donate.us.modelclasses
 
 data class StoreDonationInfo(
     var userName: String ?= null,
+    var userPhone: String ?= null,
     var rice: String ?= null,
     var egg: String ?= null,
     var vegetable: String ?= null,

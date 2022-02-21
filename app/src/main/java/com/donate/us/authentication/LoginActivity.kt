@@ -72,7 +72,8 @@ class LoginActivity : AppCompatActivity() {
                     // Access User Email
                     try {
                         userReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(snapshot: DataSnapshot) {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()){
                                     try {
                                         email = snapshot.value.toString()
                                         auth.signInWithEmailAndPassword(email, password)
@@ -100,59 +101,69 @@ class LoginActivity : AppCompatActivity() {
                                         Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
                                         Log.i("DB_Error", e.message.toString())
                                     }
-                                }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    binding.loginProgressId.visibility = View.INVISIBLE
-                                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                                    Log.i("DB_Error", error.message)
-                                }
-                            })
-
-                    } catch (e: Exception) {
-                        try {
-                            adminReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(snapshot: DataSnapshot) {
+                                } else {
                                     try {
-                                        email = snapshot.value.toString()
-                                        auth.signInWithEmailAndPassword(email, password)
-                                            .addOnCompleteListener{ task ->
-                                                if (task.isSuccessful) {
-                                                    binding.loginProgressId.visibility = View.INVISIBLE
-                                                    sharedPrefs.write("phoneKey", phone)
-                                                    sharedPrefs.write("userTypeKey", "Admin")
+                                        adminReference.child(phone).child("userEmail").addValueEventListener(object : ValueEventListener {
+                                            override fun onDataChange(snapshot: DataSnapshot) {
+                                                try {
+                                                    email = snapshot.value.toString()
 
-                                                    getUserPhone.setText("")
-                                                    getPassword.setText("")
+                                                    Log.i("admin_email_phone", email+" "+phone)
 
-                                                    val it = Intent(this@LoginActivity, MainActivity::class.java)
-                                                    startActivity(it)
-                                                    finish()
+                                                    auth.signInWithEmailAndPassword(email, password)
+                                                        .addOnCompleteListener{ task ->
+                                                            if (task.isSuccessful) {
+                                                                binding.loginProgressId.visibility = View.INVISIBLE
+                                                                sharedPrefs.write("phoneKey", phone)
+                                                                sharedPrefs.write("userTypeKey", "Admin")
 
-                                                } else {
+                                                                getUserPhone.setText("")
+                                                                getPassword.setText("")
+
+                                                                val it = Intent(this@LoginActivity, MainActivity::class.java)
+                                                                startActivity(it)
+                                                                finish()
+
+                                                            } else {
+                                                                binding.loginProgressId.visibility = View.INVISIBLE
+                                                                Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                                            }
+                                                        }
+
+                                                } catch (e: Exception) {
                                                     binding.loginProgressId.visibility = View.INVISIBLE
                                                     Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                                    Log.i("DB_Error", e.message.toString())
                                                 }
                                             }
 
+                                            override fun onCancelled(error: DatabaseError) {
+                                                binding.loginProgressId.visibility = View.INVISIBLE
+                                                Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                                Log.i("DB_Error", error.message)
+                                            }
+                                        })
+
                                     } catch (e: Exception) {
-                                        binding.loginProgressId.visibility = View.INVISIBLE
                                         Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                                        Log.i("DB_Error", e.message.toString())
+                                        binding.loginProgressId.visibility = View.INVISIBLE
+                                        Log.i("exception", e.message.toString())
                                     }
                                 }
+                            }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    binding.loginProgressId.visibility = View.INVISIBLE
-                                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                                    Log.i("DB_Error", error.message)
-                                }
-                            })
+                            override fun onCancelled(error: DatabaseError) {
+                                binding.loginProgressId.visibility = View.INVISIBLE
+                                Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                                Log.i("DB_Error", error.message)
+                            }
+                        })
 
-                        } catch (e: Exception) {
-                            Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
-                            binding.loginProgressId.visibility = View.INVISIBLE
-                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                        binding.loginProgressId.visibility = View.INVISIBLE
+                        Log.i("exception", e.message.toString())
                     }
 
                 } else {

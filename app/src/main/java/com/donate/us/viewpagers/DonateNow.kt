@@ -189,7 +189,7 @@ class DonateNow : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userName = snapshot.child("userName").value.toString()
 
-                val storeDonationInfo = StoreDonationInfo(userName, rice, egg, vegetable, chicken, redMeat, peopleQuantity,
+                val storeDonationInfo = StoreDonationInfo(userName, userPhone, rice, egg, vegetable, chicken, redMeat, peopleQuantity,
                     profileImageUrl, foodAddress, currentDate, currentTime, "unpaid")
 
                 donationReference.child(userPhone).child(currentTime.toString()).setValue(storeDonationInfo)

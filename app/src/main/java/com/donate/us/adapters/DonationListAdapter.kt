@@ -83,12 +83,6 @@ class DonationListAdapter(
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.green))
             holder.status.background = ContextCompat.getDrawable(context, R.drawable.green_border_rectangle)
             holder.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_complete,0)
-
-        } else if(postStatus.equals("unpaid")){
-            holder.status.text = "Pending"
-            holder.status.setTextColor(ContextCompat.getColor(context, R.color.red))
-            holder.status.background = ContextCompat.getDrawable(context, R.drawable.red_border_rectangle)
-            holder.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_pending_24,0)
         }
 
         holder.delete.setOnClickListener{

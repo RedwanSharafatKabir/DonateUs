@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,51 +8,96 @@
     tools:context=".activities.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_height="match_parent"
+        tools:openDrawer="start"
+        android:id="@+id/drawerId"
+        android:fitsSystemWindows="true">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="85"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"/>
+            android:orientation="vertical">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/adminTabLayout"
-            android:layout_width="0dp"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/frameLayoutId"
+                android:background="@color/orange">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/toolBarId"
+                    android:outlineAmbientShadowColor="#ffffff"
+                    android:outlineSpotShadowColor="#ffffff"
+                    android:theme="@style/Animation.Design.BottomSheetDialog" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_below="@+id/frameLayoutId">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#F1F3F6">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabGravity="fill"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@null"
+                        android:layout_margin="10dp"
+                        android:background="@android:color/transparent"
+                        app:tabSelectedTextColor="@color/orange"
+                        app:tabTextAppearance="@style/TabLayout"
+                        app:tabTextColor="@color/black" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/adminTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabGravity="fill"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@null"
+                        android:layout_margin="10dp"
+                        android:background="@android:color/transparent"
+                        app:tabSelectedTextColor="@color/orange"
+                        app:tabTextAppearance="@style/TabLayout"
+                        app:tabTextColor="@color/black" />
+
+                </LinearLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/adminViewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="85"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"/>
+            android:id="@+id/navigationViewId"
+            app:menu="@menu/activity_main_drawer_user"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_main"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profilePage"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="15"
-            android:layout_gravity="center"
-            android:src="@drawable/profile"
-            android:background="@drawable/circle_border"
-            android:padding="3dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-    </LinearLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/adminViewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+</FrameLayout>

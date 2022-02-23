@@ -2,36 +2,36 @@ package com.donate.us.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import com.donate.us.databinding.ActivityMainBinding
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
-import com.donate.us.adapters.ViewPagerAdapter
 import com.donate.us.R
 import com.donate.us.adapters.AdminViewPagerAdapter
-import com.donate.us.internetcheck.CheckAvailableInternet
+import com.donate.us.adapters.ViewPagerAdapter
+import com.donate.us.databinding.ActivityMainBinding
 import com.donate.us.offlinedb.SharedPref
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
+import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var binding: ActivityMainBinding
-    private lateinit var imgDbReference: DatabaseReference
-    private val checkAvailableInternet: CheckAvailableInternet = CheckAvailableInternet()
     private lateinit var sharedPref: SharedPref
-    private lateinit var userPhone: String
     private lateinit var userType: String
-    private lateinit var profilePic: CircleImageView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toolbar: Toolbar
+    private lateinit var navigationView: NavigationView
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         sharedPref = SharedPref()
         sharedPref.init(applicationContext)
-        userPhone = sharedPref.read("phoneKey", "").toString()
         userType = sharedPref.read("userTypeKey", "").toString()
-        imgDbReference = FirebaseDatabase.getInstance().getReference("User Images")
 
         if(userType.equals("Donor")){
             binding.viewPager2.visibility = View.VISIBLE
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             binding.adminViewPager2.visibility = View.GONE
             binding.adminTabLayout.visibility = View.GONE
 
-            profilePic = binding.profilePage
             viewPager = binding.viewPager2
             tabLayout = binding.tabLayout
 
@@ -62,17 +59,14 @@ class MainActivity : AppCompatActivity() {
                 when(position){
                     0 -> {
                         tab.text = resources.getText(R.string.home)
-                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_home_24, theme)
                     }
 
                     1 -> {
                         tab.text = resources.getText(R.string.donateNow)
-                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_card_giftcard_24, theme)
                     }
 
                     2 -> {
                         tab.text = resources.getText(R.string.donateHistory)
-                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_history_24, theme)
                     }
                 }
             }.attach()
@@ -84,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             binding.adminViewPager2.visibility = View.VISIBLE
             binding.adminTabLayout.visibility = View.VISIBLE
 
-            profilePic = binding.profilePage
             viewPager = binding.adminViewPager2
             tabLayout = binding.adminTabLayout
 
@@ -94,50 +87,29 @@ class MainActivity : AppCompatActivity() {
                 when(position){
                     0 -> {
                         tab.text = resources.getText(R.string.home)
-                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_home_24, theme)
                     }
 
                     1 -> {
                         tab.text = resources.getText(R.string.donateHistory)
-                        tab.icon = resources.getDrawable(R.drawable.ic_baseline_card_giftcard_24, theme)
                     }
                 }
             }.attach()
         }
 
-        if (checkAvailableInternet.checkInternet(applicationContext)) {
-            getProfileInfo(userPhone)
-        } else {
-            Toast.makeText(applicationContext, "Turn on internet", Toast.LENGTH_SHORT).show()
-        }
+        toolbar = binding.toolBarId
+        drawerLayout = binding.drawerId
+        navigationView = binding.navigationViewId
 
-        profilePic.setOnClickListener {
-            val intent = Intent(this@MainActivity, Profile::class.java)
-            startActivity(intent)
-        }
-    }
+        setSupportActionBar(toolbar)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this@MainActivity, drawerLayout, toolbar,
+            R.string.drawerOpen, R.string.drawerClose)
+        drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-    private fun getProfileInfo(userPhone: String) {
-        try {
-            imgDbReference.child(userPhone).addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    try {
-                        val imageUrl = snapshot.child("avatar").value.toString()
-                        Picasso.get().load(imageUrl).into(profilePic)
-
-                    } catch (e: java.lang.Exception) {
-                        Log.i("Error", e.message.toString())
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.i("Error", error.message)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            Log.i("Error", e.message.toString())
-        }
+        navigationView.itemIconTintList = null
+        navigationView.bringToFront()
+        navigationView.setNavigationItemSelectedListener(this@MainActivity)
     }
 
     override fun onBackPressed() {
@@ -160,5 +132,24 @@ class MainActivity : AppCompatActivity() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START, true)
+        val id = item.itemId
+
+        when (id) {
+            R.id.profileId -> {
+                val intent = Intent(this@MainActivity, Profile::class.java)
+                startActivity(intent)
+            }
+
+            R.id.aboutId -> {
+                val intent = Intent(this@MainActivity, About::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return true
     }
 }

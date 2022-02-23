@@ -65,6 +65,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/eub"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="European University of Bangladesh"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,23 +123,6 @@
                 android:drawableLeft="@drawable/ic_baseline_local_phone_24"
                 android:textColor="@color/grey"
                 android:text="01988185612, 01557631000"
-                android:textSize="16sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:padding="10dp"
-                android:textColor="@color/grey"
-                android:text="www.fb.com"
-                android:drawableLeft="@drawable/ic_baseline_link_24"
                 android:textSize="16sp"/>
 
             <View

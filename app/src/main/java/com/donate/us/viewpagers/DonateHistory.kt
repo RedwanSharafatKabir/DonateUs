@@ -66,8 +66,6 @@ class DonateHistory : Fragment() {
     }
 
     private fun getPaidDonations() {
-        binding.noPost.visibility = View.VISIBLE
-
         if(userType.equals("Donor")){
             try {
                 databaseReference.child(userPhone).addValueEventListener(object :
@@ -91,7 +89,6 @@ class DonateHistory : Fragment() {
                             )
 
                             binding.historyProgress.visibility = View.INVISIBLE
-                            binding.noPost.visibility = View.INVISIBLE
 
                         } catch (e: Exception) {
                             binding.historyProgress.visibility = View.INVISIBLE
@@ -134,7 +131,6 @@ class DonateHistory : Fragment() {
                             recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
 
                             binding.historyProgress.visibility = View.INVISIBLE
-                            binding.noPost.visibility = View.INVISIBLE
 
                         } catch (e: Exception){
                             binding.historyProgress.visibility = View.INVISIBLE

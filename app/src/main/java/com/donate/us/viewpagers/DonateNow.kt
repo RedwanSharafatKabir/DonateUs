@@ -149,8 +149,8 @@ class DonateNow : Fragment() {
         }
     }
 
-    private fun uploadImageToFirebase(rice: String, egg: String, vegetable: String, chicken: String,
-                                      redMeat: String, foodAddress: String, peopleQuantity: String, uriProfileImage: Uri) {
+    private fun uploadImageToFirebase(rice: String, egg: String, vegetable: String, chicken: String, redMeat: String,
+                                      foodAddress: String, peopleQuantity: String, uriProfileImage: Uri) {
         getDialogProgressBar()
         progressDialog = getDialogProgressBar().create()
         progressDialog.show()
@@ -162,7 +162,8 @@ class DonateNow : Fragment() {
                 storageReference.downloadUrl.addOnSuccessListener { uri ->
                     profileImageUrl = uri.toString()
 
-                    saveUserInfo(rice, egg, vegetable, chicken, redMeat, foodAddress, peopleQuantity, profileImageUrl)
+                    saveUserInfo(rice, egg, vegetable, chicken, redMeat, foodAddress,
+                        peopleQuantity, profileImageUrl)
 
                 }.addOnFailureListener { e ->
                     progressDialog.dismiss()
@@ -177,8 +178,8 @@ class DonateNow : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun saveUserInfo(rice: String, egg: String, vegetable: String, chicken: String,
-                             redMeat: String, foodAddress: String, peopleQuantity: String, profileImageUrl: String) {
+    private fun saveUserInfo(rice: String, egg: String, vegetable: String, chicken: String, redMeat: String,
+                             foodAddress: String, peopleQuantity: String, profileImageUrl: String) {
         var userName: String
         val df = SimpleDateFormat("dd/M/yyyy")
         val tf = SimpleDateFormat("hh:mm:ss")

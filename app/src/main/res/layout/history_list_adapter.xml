@@ -1,67 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="80">
+        app:cardElevation="5dp"
+        app:cardCornerRadius="3dp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp">
 
-        <TextView
-            android:id="@+id/donorDate"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:gravity="center|left"
-            android:layout_gravity="center"
-            android:textColor="#000"
-            android:paddingLeft="10dp"
-            android:textSize="16sp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_margin="5dp">
 
-        <TextView
-            android:id="@+id/donorName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:padding="5dp"/>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/foodsHistoryImage"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="20"
+                android:src="@drawable/donate_logo"
+                app:riv_corner_radius="5dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/donorFood"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:padding="5dp"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="10dp">
 
-        <TextView
-            android:id="@+id/donorStatus"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textColor="#000"
-            android:padding="5dp"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/donorHistoryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center|left"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/foodHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/yellow_light"
+                    android:gravity="center|left"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/viewHistoryPost"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:src="@drawable/ic_baseline_arrow_forward_green"
+                android:padding="20dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

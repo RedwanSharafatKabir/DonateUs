@@ -151,7 +151,7 @@
                     android:id="@+id/admin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Register as Admin"/>
+                    android:text="Register as Food Collector"/>
 
             </RadioGroup>
 

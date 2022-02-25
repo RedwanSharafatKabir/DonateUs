@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.os.Parcelable
 import android.util.Log
-import com.donate.us.adapters.DonationAdminListAdapter
 import com.donate.us.adapters.DonationListAdapter
 import com.donate.us.modelclasses.StoreDonationInfo
 import com.google.firebase.database.*
@@ -29,7 +28,6 @@ class HomePage : Fragment() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var donationListAdapter: DonationListAdapter
-    private lateinit var donationAdminListAdapter: DonationAdminListAdapter
     private lateinit var donationArrayList: ArrayList<StoreDonationInfo>
     private var recyclerViewState: Parcelable? = null
 
@@ -46,9 +44,7 @@ class HomePage : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         donationArrayList = arrayListOf<StoreDonationInfo>()
-
         donationListAdapter = DonationListAdapter(requireContext(), donationArrayList)
-        donationAdminListAdapter = DonationAdminListAdapter(requireContext(), donationArrayList)
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -71,101 +67,43 @@ class HomePage : Fragment() {
     private fun getUnpaidDonations() {
         binding.noPost.visibility = View.VISIBLE
 
-        if(userType.equals("Donor")){
-            try {
-                databaseReference.child(userPhone).addValueEventListener(object : ValueEventListener {
-                        @SuppressLint("NotifyDataSetChanged")
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            try {
-                                donationArrayList.clear()
+        try {
+            databaseReference.addValueEventListener(object: ValueEventListener{
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    try {
+                        donationArrayList.clear()
 
-                                for (items in snapshot.children) {
-                                    Log.i("items", items.value.toString())
+                        for (items in snapshot.children) {
+                            for (item in items.children) {
+                                Log.i("items_admin", item.value.toString())
 
-                                    val storeDonationInfo =
-                                        items.getValue(StoreDonationInfo::class.java)!!
-                                    donationArrayList.add(storeDonationInfo)
-                                }
-
-                                recyclerView.adapter = donationListAdapter
-                                donationListAdapter.notifyDataSetChanged()
-                                recyclerView.layoutManager!!.onRestoreInstanceState(
-                                    recyclerViewState
-                                )
-
-                                binding.homeProgress.visibility = View.INVISIBLE
-                                binding.noPost.visibility = View.INVISIBLE
-
-                            } catch (e: Exception) {
-                                binding.homeProgress.visibility = View.INVISIBLE
-                                Toast.makeText(activity, "Database error", Toast.LENGTH_SHORT)
-                                    .show()
+                                val storeDonationInfo = item.getValue(StoreDonationInfo::class.java)!!
+                                donationArrayList.add(storeDonationInfo)
                             }
                         }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            binding.homeProgress.visibility = View.INVISIBLE
-                            Log.i("Error", error.message)
-                        }
-                    })
+                        recyclerView.adapter = donationListAdapter
+                        donationListAdapter.notifyDataSetChanged()
+                        recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
 
-            } catch (e: Exception) {
-                Log.i("Exception", e.message.toString())
-                binding.homeProgress.visibility = View.INVISIBLE
-            }
-        }
-
-        if(userType.equals("Admin")){
-            try {
-                databaseReference.addValueEventListener(object: ValueEventListener{
-                    @SuppressLint("NotifyDataSetChanged")
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        try {
-                            donationArrayList.clear()
-
-                            for (items in snapshot.children) {
-                                for (item in items.children) {
-                                    Log.i("items_admin", item.value.toString())
-
-                                    val storeDonationInfo = item.getValue(StoreDonationInfo::class.java)!!
-                                    donationArrayList.add(storeDonationInfo)
-                                }
-                            }
-
-                            recyclerView.adapter = donationAdminListAdapter
-                            donationAdminListAdapter.notifyDataSetChanged()
-                            recyclerView.layoutManager!!.onRestoreInstanceState(recyclerViewState)
-
-                            binding.homeProgress.visibility = View.INVISIBLE
-                            binding.noPost.visibility = View.INVISIBLE
-
-                        } catch (e: Exception){
-                            binding.homeProgress.visibility = View.INVISIBLE
-                            Toast.makeText(activity, "Database error", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
                         binding.homeProgress.visibility = View.INVISIBLE
-                        Log.i("Error", error.message)
+                        binding.noPost.visibility = View.INVISIBLE
+
+                    } catch (e: Exception){
+                        binding.homeProgress.visibility = View.INVISIBLE
+                        Toast.makeText(activity, "Database error", Toast.LENGTH_SHORT).show()
                     }
-                })
+                }
 
-            } catch (e: Exception){
-                Log.i("Exception", e.message.toString())
-                binding.homeProgress.visibility = View.INVISIBLE
-            }
-        }
-    }
+                override fun onCancelled(error: DatabaseError) {
+                    binding.homeProgress.visibility = View.INVISIBLE
+                    Log.i("Error", error.message)
+                }
+            })
 
-    override fun onResume() {
-        super.onResume()
-
-        if(checkAvailableInternet.checkInternet(requireContext())){
-            getUnpaidDonations()
-
-        } else {
-            Toast.makeText(activity, "Turn on internet", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception){
+            Log.i("Exception", e.message.toString())
             binding.homeProgress.visibility = View.INVISIBLE
         }
     }

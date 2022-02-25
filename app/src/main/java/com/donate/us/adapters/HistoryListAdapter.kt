@@ -2,15 +2,17 @@ package com.donate.us.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.appcompat.app.AlertDialog
 import com.donate.us.R
+import com.donate.us.activities.ParticularPost
 import com.donate.us.modelclasses.StoreDonationInfo
+import com.donate.us.offlinedb.SharedPref
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
@@ -30,36 +32,57 @@ class HistoryListAdapter(
         val storeDonationInfo: StoreDonationInfo = storeDonationInfoArrayList[position]
 
         var foods = ""
+        val name: String = storeDonationInfo.userName.toString()
+        val phone: String = storeDonationInfo.userPhone.toString()
         val chicken: String = storeDonationInfo.chicken.toString()
         val egg: String = storeDonationInfo.egg.toString()
         val redMeat: String = storeDonationInfo.redMeat.toString()
         val rice: String = storeDonationInfo.rice.toString()
         val vegetable: String = storeDonationInfo.vegetable.toString()
-        val name: String = storeDonationInfo.userName.toString()
+        val peopleQuantity: String = storeDonationInfo.quantityPeople.toString()
+        val pickAddress: String = storeDonationInfo.pickAdress.toString()
         val postStatus: String = storeDonationInfo.status.toString()
+        val imageUrl: String = storeDonationInfo.avatar.toString()
         val date: String = storeDonationInfo.date.toString()
         val time: String = storeDonationInfo.time.toString()
 
         if(chicken.isNotEmpty()){
-            foods = foods + chicken + ", "
+            foods = "$foods$chicken, "
         }
         if(egg.isNotEmpty()){
-            foods = foods + egg + ", "
+            foods = "$foods$egg, "
         }
         if(redMeat.isNotEmpty()){
-            foods = foods + redMeat + ", "
+            foods = "$foods$redMeat, "
         }
         if(rice.isNotEmpty()){
-            foods = foods + rice + ", "
+            foods = "$foods$rice, "
         }
         if(vegetable.isNotEmpty()){
-            foods = foods + vegetable + ", "
+            foods = "$foods$vegetable"
         }
 
-        holder.name.text = name
-        holder.food.text = foods
-        holder.date.text = "$date\n$time"
-        holder.status.text = postStatus
+        holder.name.text = "Donor: $name"
+        holder.food.text = "Foods: $foods"
+        Picasso.get().load(imageUrl).into(holder.image)
+
+        holder.viewPost.setOnClickListener{
+            val intent = Intent(context, ParticularPost::class.java)
+            intent.putExtra("donorName", name)
+            intent.putExtra("donorPhone", phone)
+            intent.putExtra("egg", egg)
+            intent.putExtra("vegetable", vegetable)
+            intent.putExtra("chicken", chicken)
+            intent.putExtra("redMeat", redMeat)
+            intent.putExtra("rice", rice)
+            intent.putExtra("peopleQuantity", peopleQuantity)
+            intent.putExtra("pickAddress", pickAddress)
+            intent.putExtra("postStatus", postStatus)
+            intent.putExtra("date", date)
+            intent.putExtra("time", time)
+            intent.putExtra("imageUrl", imageUrl)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -69,14 +92,14 @@ class HistoryListAdapter(
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name: TextView
         var food: TextView
-        var date: TextView
-        var status: TextView
+        var image: ImageView
+        var viewPost: ImageView
 
         init {
-            name = itemView.findViewById(R.id.donorName)
-            food = itemView.findViewById(R.id.donorFood)
-            date = itemView.findViewById(R.id.donorDate)
-            status = itemView.findViewById(R.id.donorStatus)
+            name = itemView.findViewById(R.id.donorHistoryName)
+            food = itemView.findViewById(R.id.foodHistory)
+            image = itemView.findViewById(R.id.foodsHistoryImage)
+            viewPost = itemView.findViewById(R.id.viewHistoryPost)
         }
     }
 }

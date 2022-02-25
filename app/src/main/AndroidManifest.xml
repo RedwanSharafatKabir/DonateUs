@@ -15,8 +15,9 @@
         android:theme="@style/Theme.DonateUs"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.AdminMainActivity"
-            android:exported="true" />
+            android:name=".activities.ParticularPost"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Profile"
             android:exported="true"
@@ -42,7 +43,7 @@
         <activity
             android:name=".authentication.LoginActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true"

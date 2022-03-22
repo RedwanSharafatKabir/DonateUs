@@ -71,10 +71,9 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:src="@drawable/eub"
-                    android:layout_marginLeft="10dp"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -147,12 +146,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:drawableLeft="@drawable/white_arrow_forward_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/teamMembers"
+                android:textColor="@color/grey"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/grey"
+                android:text="Project Supervisor:"
+                android:drawableLeft="@drawable/ic_baseline_manage_accounts_24"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center|left"
                 android:padding="10dp"
                 android:textColor="@color/grey"
-                android:text="@string/teamMembers"
+                android:text="Jannatul Ferdaous\nLecturer, Dept. CSE"
                 android:drawableLeft="@drawable/white_arrow_forward_24"
                 android:textSize="16sp"/>
 

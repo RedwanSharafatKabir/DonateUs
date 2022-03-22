@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects with Kotlin/DonateUs/app/src/main/res/layout/activity_about.xml" value="0.22" />
+        <entry key="..\:/Android Projects with Kotlin/DonateUs/app/src/main/res/layout/activity_login.xml" value="0.209375" />
+        <entry key="..\:/Android Projects with Kotlin/DonateUs/app/src/main/res/layout/activity_profile.xml" value="0.20948410630536737" />
+        <entry key="..\:/Android Projects with Kotlin/DonateUs/app/src/main/res/layout/activity_register.xml" value="0.209375" />
+        <entry key="..\:/Android Projects with Kotlin/DonateUs/app/src/main/res/layout/history_list_adapter.xml" value="0.209375" />
         <entry key="..\:/Users/Redwan/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/activity_list_item.xml" value="0.209375" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.136" />
         <entry key="..\:/Users/Redwan/OneDrive/Desktop/DonateUs/app/src/main/res/drawable/blue_border_rectangle.xml" value="0.22552083333333334" />

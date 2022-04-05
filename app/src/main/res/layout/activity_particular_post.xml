@@ -60,7 +60,7 @@
                     android:layout_gravity="center"
                     android:gravity="center|left"
                     android:text="Donated by:"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/userName"
@@ -71,7 +71,7 @@
                     android:gravity="center|left"
                     android:textStyle="bold"
                     android:paddingLeft="5dp"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:id="@+id/deleteBtn"
@@ -101,7 +101,7 @@
                 android:gravity="center|left"
                 android:text="Available foods:"
                 android:paddingLeft="10dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginTop="20dp"/>
 
             <TextView
@@ -112,7 +112,7 @@
                 android:gravity="center|left"
                 android:textStyle="bold"
                 android:paddingLeft="10dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +127,7 @@
                     android:layout_gravity="center"
                     android:gravity="center|left"
                     android:text="Quantity of people:"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/peopleQuantity"
@@ -137,7 +137,7 @@
                     android:gravity="center|left"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -147,7 +147,8 @@
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,7 +156,7 @@
                     android:layout_gravity="center"
                     android:gravity="center|left"
                     android:text="Donor Location:"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/pickLocation"
@@ -165,7 +166,7 @@
                     android:gravity="center|left"
                     android:textStyle="bold"
                     android:paddingLeft="10dp"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -184,7 +185,7 @@
                     android:text="Status: "
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/status"
@@ -196,8 +197,55 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/red"
                     android:drawableRight="@drawable/ic_baseline_pending_24"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center|left"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:text="Contact: "
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/donorPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="45"
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="+88 01816817211"/>
+
+                <TextView
+                    android:id="@+id/callNow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="35"
+                    android:text="Call Now"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/green_shape"
+                    android:drawableRight="@drawable/ic_baseline_local_phone_white"
+                    android:drawablePadding="10dp"
+                    android:padding="8dp"/>
 
             </LinearLayout>
 

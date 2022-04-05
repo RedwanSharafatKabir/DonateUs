@@ -68,12 +68,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     android:weightSum="90">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
+                        android:layout_weight="15"
                         android:fontFamily="sans-serif-light"
                         android:text="+88"
                         android:textAlignment="textEnd"
@@ -88,7 +89,7 @@
                         android:textColorHint="@color/grey"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="70"
+                        android:layout_weight="75"
                         android:background="@android:color/transparent"
                         android:hint="01XXXXXXXXX"
                         android:textSize="18sp"
@@ -118,29 +119,40 @@
                     android:orientation="horizontal"
                     android:weightSum="90">
 
-                    <EditText
-                        android:id="@+id/enterPasswordLogin"
-                        android:fontFamily="sans-serif-light"
-                        android:textColorHint="@color/grey"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="70"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_lock_24"
-                        android:hint=" Password"
-                        android:textSize="18sp"
-                        android:inputType="textPassword"
-                        android:gravity="center|left"
-                        android:maxLength="11"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="50dp"/>
+                        android:layout_weight="76"
+                        app:passwordToggleEnabled="true">
+
+                        <EditText
+                            android:id="@+id/enterPasswordLogin"
+                            android:fontFamily="sans-serif-light"
+                            android:textColorHint="@color/grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:layout_marginTop="5dp"
+                            android:hint=" Password"
+                            android:textSize="18sp"
+                            android:inputType="textPassword"
+                            android:gravity="center|left"
+                            android:maxLength="11"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange"/>
 
                     <ImageView
                         android:id="@+id/button_confirm"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
+                        android:layout_weight="13"
                         android:src="@drawable/ic_baseline_arrow_forward_24"
                         android:gravity="right"
                         android:layout_gravity="center"/>
@@ -155,6 +167,18 @@
                 android:layout_height="10dp"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:indeterminate="true"/>
+
+            <TextView
+                android:id="@+id/forgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="forgot password ? "
+                android:textAlignment="center"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                android:layout_gravity="center|right"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -76,6 +76,11 @@ class Profile : AppCompatActivity() {
             logoutApp()
         }
 
+        binding.blog.setOnClickListener {
+            val intent = Intent(this@Profile, Blog::class.java)
+            startActivity(intent)
+        }
+
         binding.saveAddress.setOnClickListener{
             val enterAddress = binding.profileAddress.text.toString()
             if(enterAddress.isEmpty()){

@@ -1,13 +1,18 @@
 package com.donate.us.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.donate.us.R
 import com.donate.us.databinding.ActivityParticularPostBinding
@@ -88,6 +93,7 @@ class ParticularPost : AppCompatActivity() {
         }
 
         binding.userName.text = donorName
+        binding.donorPhone.text = "+88$donorPhone"
         binding.food.text = foods
         binding.peopleQuantity.text = peopleQuantity
         binding.pickLocation.text = pickAddress
@@ -95,11 +101,13 @@ class ParticularPost : AppCompatActivity() {
         if(userType.equals("Admin") && postStatus.equals("unpaid")){
             binding.deleteBtn.visibility = View.GONE
             binding.collectNow.visibility = View.VISIBLE
+            binding.callNow.visibility = View.VISIBLE
         }
 
         if(userType.equals("Admin") && postStatus.equals("paid")){
             binding.deleteBtn.visibility = View.GONE
             binding.collectNow.visibility = View.GONE
+            binding.callNow.visibility = View.VISIBLE
             binding.status.text = "Collected"
             binding.status.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
             binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_complete, 0)
@@ -108,11 +116,13 @@ class ParticularPost : AppCompatActivity() {
         if(userType.equals("Donor") && postStatus.equals("unpaid")){
             binding.deleteBtn.visibility = View.VISIBLE
             binding.collectNow.visibility = View.GONE
+            binding.callNow.visibility = View.GONE
         }
 
         if(userType.equals("Donor") && postStatus.equals("paid")){
             binding.deleteBtn.visibility = View.VISIBLE
             binding.collectNow.visibility = View.GONE
+            binding.callNow.visibility = View.GONE
             binding.status.text = "Collected"
             binding.status.setTextColor(ContextCompat.getColor(applicationContext, R.color.green))
             binding.status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_outline_complete, 0)
@@ -120,6 +130,20 @@ class ParticularPost : AppCompatActivity() {
 
         binding.backFromPost.setOnClickListener {
             super.onBackPressed()
+        }
+
+        binding.callNow.setOnClickListener {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:$donorPhone")
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((this as Activity?)!!, arrayOf(Manifest.permission.CALL_PHONE), 1)
+
+                startActivity(callIntent)
+
+            } else {
+                startActivity(callIntent)
+            }
         }
 
         binding.deleteBtn.setOnClickListener{

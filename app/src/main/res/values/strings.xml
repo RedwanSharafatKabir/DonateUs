@@ -14,6 +14,8 @@
     <string name="donateNow">Donate</string>
     <string name="donateHistory">History</string>
 
-    <string name="teamMembers">Name - Saiful islam Rishad\nId - 190122051\n\nName: M Sazzad Sultani Roksi\nId. 190122063\n\nName: Rifatul  Islam\nID.190122041\n\nName: Tariqul Islam Rifat\n190122050\n\nName: Most sima akter\nId: 190122015</string>
+    <string name="donateProcess">At first user must create an account as donor and login into our system. Then go to "Donate Now" page and provide an address/location from where our collectors/agents will take food. Select types of foods from the list, set the quantity of people whom the foods are available for. Finally upload a image of food and post it.\nThe newly created post will be appeared in the "News Feed" page.</string>
+
+    <string name="collectProcess">At first user must create an account as food collector and login into our system. Then "News Feed" page will be appeared. User can view the donation post details information by clicking right arrow ">" of particular post. Food collector can make a call/contact with donor and discuss about donation collection procedure themselves. When collector will reach donors location/address and meet him/her, collector will click "Apply Now" button and confirm the food collection process. After confirm the collection of food, the post will be appeared in the "History" page.</string>
 
 </resources>

@@ -241,6 +241,44 @@
             android:layout_height="2dp" />
 
         <LinearLayout
+            android:id="@+id/blog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:text="Blog"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|left"
+                android:padding="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <LinearLayout
             android:id="@+id/profileLogOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

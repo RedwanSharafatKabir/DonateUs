@@ -8,14 +8,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.donate.us.internetcheck.CheckAvailableInternet
 import com.donate.us.R
 import com.donate.us.activities.MainActivity
-import com.donate.us.offlinedb.SharedPref
 import com.donate.us.databinding.ActivityLoginBinding
+import com.donate.us.internetcheck.CheckAvailableInternet
+import com.donate.us.offlinedb.SharedPref
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
 
@@ -86,8 +85,8 @@ class LoginActivity : AppCompatActivity() {
                                                     getUserPhone.setText("")
                                                     getPassword.setText("")
 
-                                                    val it = Intent(this@LoginActivity, MainActivity::class.java)
-                                                    startActivity(it)
+                                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                                    startActivity(intent)
                                                     finish()
 
                                                 } else {
@@ -109,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
                                                 try {
                                                     email = snapshot.value.toString()
 
-                                                    Log.i("admin_email_phone", email+" "+phone)
+                                                    Log.i("admin_email_phone", "$email $phone")
 
                                                     auth.signInWithEmailAndPassword(email, password)
                                                         .addOnCompleteListener{ task ->
@@ -121,8 +120,8 @@ class LoginActivity : AppCompatActivity() {
                                                                 getUserPhone.setText("")
                                                                 getPassword.setText("")
 
-                                                                val it = Intent(this@LoginActivity, MainActivity::class.java)
-                                                                startActivity(it)
+                                                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                                                startActivity(intent)
                                                                 finish()
 
                                                             } else {
@@ -176,6 +175,38 @@ class LoginActivity : AppCompatActivity() {
         binding.signUpPage.setOnClickListener{
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.forgotPass.setOnClickListener {
+            val views: View = layoutInflater.inflate(R.layout.forgot_passwprd_reset, null)
+            val email = views.findViewById<EditText>(R.id.reset_forgot_password)
+
+            val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@LoginActivity)
+            alertDialogBuilder.setView(views)
+            alertDialogBuilder.setTitle("Forgot Your Password?")
+            alertDialogBuilder.setMessage("Enter your email to get reset password link")
+            alertDialogBuilder.setCancelable(false)
+
+            alertDialogBuilder.setPositiveButton("Reset") { dialog, _ ->
+                if (email.text.toString().isEmpty()) {
+                    email.error = "Email is required"
+
+                } else {
+                    auth.sendPasswordResetEmail(email.text.toString()).addOnSuccessListener {
+                        Toast.makeText(applicationContext, "Password reset link is sent to your email", Toast.LENGTH_SHORT).show()
+
+                        dialog.cancel()
+
+                    }.addOnFailureListener { e ->
+                        Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            alertDialogBuilder.setNeutralButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
         }
     }
 

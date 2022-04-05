@@ -150,16 +150,4 @@ class DonateHistory : Fragment() {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-
-        if(checkAvailableInternet.checkInternet(requireContext())){
-            getPaidDonations()
-
-        } else {
-            Toast.makeText(activity, "Turn on internet", Toast.LENGTH_SHORT).show()
-            binding.historyProgress.visibility = View.INVISIBLE
-        }
-    }
 }

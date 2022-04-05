@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.About"
-    android:background="#F1F3F6">
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,120 +45,68 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:paddingLeft="10dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:textColor="@color/grey"
-                android:text="connect with us !"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:layout_marginTop="5dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/grey_rectangle"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/eub"
-                    android:layout_gravity="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/eub"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center|left"
+                        android:padding="10dp"
+                        android:textColor="@color/grey"
+                        android:text="European University of Bangladesh"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif"
                     android:gravity="center|left"
                     android:padding="10dp"
                     android:textColor="@color/grey"
-                    android:text="European University of Bangladesh"
+                    android:text="eub.rifat@gmail.com"
+                    android:drawableLeft="@drawable/ic_baseline_red_email_24"
+                    android:background="@drawable/grey_rectangle"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:background="@drawable/grey_rectangle"
+                    android:layout_marginLeft="5dp"
+                    android:padding="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+                    android:textColor="@color/grey"
+                    android:text="01988185612, 01557631000"
                     android:textSize="16sp"/>
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:padding="10dp"
-                android:textColor="@color/grey"
-                android:text="eub.rifat@gmail.com"
-                android:drawableLeft="@drawable/ic_baseline_red_email_24"
-                android:textSize="16sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:padding="10dp"
-                android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-                android:textColor="@color/grey"
-                android:text="01988185612, 01557631000"
-                android:textSize="16sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/grey"
-                android:text="Team Members:"
-                android:drawableLeft="@drawable/ic_baseline_groups_24"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawableLeft="@drawable/white_arrow_forward_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|left"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/teamMembers"
-                android:textColor="@color/grey"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -172,7 +120,36 @@
                 android:textColor="@color/grey"
                 android:text="Project Supervisor:"
                 android:drawableLeft="@drawable/ic_baseline_manage_accounts_24"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_margin="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/maam"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Jannatul Ferdaous\nLecturer, Dept. CSE"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -181,11 +158,161 @@
                 android:drawablePadding="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center|left"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
                 android:textColor="@color/grey"
-                android:text="Jannatul Ferdaous\nLecturer, Dept. CSE"
-                android:drawableLeft="@drawable/white_arrow_forward_24"
+                android:text="Team Members:"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ic_baseline_groups_24"
                 android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_margin="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/saiful"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Name - Saiful islam Rishad\nId - 190122051"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/sazzad"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Name: M Sazzad Sultani Roksi\nId. 190122063"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/rifat"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Name: Rifatul  Islam\nID.190122041"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/tariqul"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Name: Tariqul Islam Rifat\n190122050"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_rectangle"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/shima"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:text="Name: Most sima akter\nId: 190122015"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,7 +323,7 @@
                 android:textColor="@color/grey"
                 android:text="&#169; 2022 Team FWM - All right reserved"
                 android:textSize="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center|bottom"
                 android:layout_marginBottom="20dp"/>
 

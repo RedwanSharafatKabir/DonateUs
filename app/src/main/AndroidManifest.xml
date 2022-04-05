@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DonateUs"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activities.Blog"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ParticularPost"
             android:exported="true"
